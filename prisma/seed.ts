@@ -1,6 +1,6 @@
 import prisma from "@/lib/db";
-import photographersData from "@/data/photographer.json";
-import mediasData from "@/data/media.json";
+import photographersData from "./data/photographer.json";
+import mediasData from "./data/media.json";
 
 async function main() {
   await prisma.photographer.createMany({
