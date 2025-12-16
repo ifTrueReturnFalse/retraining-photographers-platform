@@ -46,5 +46,4 @@ next-env.d.ts
 /public/content
 
 # Database
-dev.db
 /prisma/dev.db
