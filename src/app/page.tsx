@@ -1,4 +1,5 @@
 import { getAllPhotographers } from "@/lib/prisma-db";
+import { IndexHeader } from "@/components/Headers/IndexHeader";
 
 export default async function Home() {
   const photographers = await getAllPhotographers();
@@ -6,7 +7,7 @@ export default async function Home() {
 
   return (
     <div>
-      <h1>Photographes</h1>
+      <IndexHeader />
       <pre>{JSON.stringify(photographers, null, 2)}</pre>
     </div>
   );

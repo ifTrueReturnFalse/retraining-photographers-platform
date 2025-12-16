@@ -9,3 +9,8 @@
   --seconday-grey: #525252;
   --secondary-red: #901c1c;
 }
+
+body {
+  max-width: 1440px;
+  margin: auto;
+}
