@@ -1,0 +1,10 @@
+.photoContainer {
+  height: 200px;
+  width: 200px;
+}
+
+.photo {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
