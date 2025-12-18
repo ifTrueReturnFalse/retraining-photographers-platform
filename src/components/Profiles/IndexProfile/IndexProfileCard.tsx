@@ -8,11 +8,11 @@ interface IndexProfileCardProps {
 }
 
 export function IndexProfileCard({ photographer }: IndexProfileCardProps) {
-  const { portrait, name, city, country, tagline, price } = photographer;
+  const { portrait, name, city, country, tagline, price, id } = photographer;
 
   return (
     <article className={styles.container}>
-      <Link href={"#"} className={styles.link}>
+      <Link href={`/photographer/${id}`} className={styles.link}>
         <ProfilePhoto profilePhotoSrc={portrait} profilePhotoAlt="" />
         <h2>{name}</h2>
       </Link>

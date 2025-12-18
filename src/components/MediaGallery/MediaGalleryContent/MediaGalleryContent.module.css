@@ -1,0 +1,31 @@
+.container {
+  width: 350px;
+}
+
+.mediaContainer {
+  width: 350px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.photo {
+  object-fit: cover;
+  aspect-ratio: calc(350 / 300);
+  border-radius: 5px;
+}
+
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--primary-red);
+}
+
+.likes {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+}

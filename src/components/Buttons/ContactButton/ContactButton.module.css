@@ -1,0 +1,17 @@
+.button {
+  background-color: var(--primary-red);
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  border-radius: 0.3rem;
+  padding: 1.25rem 0.625rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.button:hover,
+.button:focus
+{
+  color: black;
+  background-color: var(--secondary-orange);
+}
