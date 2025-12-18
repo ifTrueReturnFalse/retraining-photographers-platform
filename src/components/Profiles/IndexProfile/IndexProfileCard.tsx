@@ -4,11 +4,11 @@ import Link from "next/link";
 import { Photographer } from "@/app/generated/prisma/client";
 
 interface IndexProfileCardProps {
-  photographer: Photographer
+  photographer: Photographer;
 }
 
-export function IndexProfileCard({photographer}: IndexProfileCardProps) {
-  const {portrait, name, city, country, tagline, price} = photographer
+export function IndexProfileCard({ photographer }: IndexProfileCardProps) {
+  const { portrait, name, city, country, tagline, price } = photographer;
 
   return (
     <article className={styles.container}>
