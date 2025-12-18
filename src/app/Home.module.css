@@ -1,8 +1,9 @@
 .container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
-  column-gap: 200px;
-  row-gap: 80px;
-  margin-top: 50px;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+  column-gap: clamp(4rem, 10vw, 10rem);
+  row-gap: 5rem;
+  margin-top: 3rem;
   justify-items: center;
+  list-style: none;
 }

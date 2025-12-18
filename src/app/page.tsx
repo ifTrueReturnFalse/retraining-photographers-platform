@@ -9,10 +9,14 @@ export default async function Home() {
   return (
     <>
       <IndexHeader />
-      <main className={styles.container}>
-        {photographers.map((photographer) => (
-          <IndexProfileCard key={photographer.id} photographer={photographer} />
-        ))}
+      <main>
+        <ul className={styles.container} aria-label="Photographes disponibles">
+          {photographers.map((photographer) => (
+            <li key={photographer.id}>
+              <IndexProfileCard photographer={photographer} />
+            </li>
+          ))}
+        </ul>
       </main>
     </>
   );

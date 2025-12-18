@@ -13,7 +13,7 @@ export function IndexProfileCard({ photographer }: IndexProfileCardProps) {
   return (
     <article className={styles.container}>
       <Link href={"#"} className={styles.link}>
-        <ProfilePhoto profilePhotoSrc={portrait} profilePhotoAlt={name} />
+        <ProfilePhoto profilePhotoSrc={portrait} profilePhotoAlt="" />
         <h2>{name}</h2>
       </Link>
 

@@ -13,19 +13,19 @@
 
 .link h2 {
   color: var(--primary-orange);
-  font-size: 36px;
+  font-size: 2.25rem;
 }
 
 .location {
   color: var(--primary-red);
-  font-size: 13px;
+  font-size: 0.8rem;
 }
 
 .tagline {
-  font-size: 10px;
+  font-size: 0.7rem;
 }
 
 .price {
-  font-size: 9px;
+  font-size: 0.6rem;
   color: #757575;
 }
