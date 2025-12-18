@@ -8,12 +8,13 @@ interface ProfilePhotoProps {
 
 export function ProfilePhoto({
   profilePhotoSrc,
+  profilePhotoAlt,
 }: ProfilePhotoProps) {
   return (
     <figure className={styles.photoContainer}>
       <Image
         src={`/content/${profilePhotoSrc}`}
-        alt=""
+        alt={profilePhotoAlt}
         height={200}
         width={200}
         className={styles.photo}
