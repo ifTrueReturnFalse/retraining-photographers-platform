@@ -1,18 +1,43 @@
+"use client";
+
 import styles from "./MediaGalleryContent.module.css";
 import Image from "next/image";
-import { Video } from "@/components/Video";
 import { Media } from "@/app/generated/prisma/client";
+import { useVideoThumbnail } from "@/hooks/useVideoThumbnail";
 
 interface MediaGalleryContentProps {
   media: Media;
 }
 
 export function MediaGalleryContent({ media }: MediaGalleryContentProps) {
+  const { thumbnail, loading } = useVideoThumbnail(media.video);
+
   return (
     <article className={styles.container}>
       <figure className={styles.mediaContainer}>
-        {media.image != null && <Image src={`/content/${media.image}`} alt={media.title} width={350} height={300} className={styles.photo} />}
-        {media.video != null && <Video src={`/content/${media.video}`} />}
+        {media.image != null && (
+          <Image
+            src={`/content/${media.image}`}
+            alt={media.title}
+            width={350}
+            height={300}
+            className={styles.photo}
+          />
+        )}
+        {media.video != null &&
+          (loading ? (
+            <div className={styles.loader} />
+          ) : (
+            thumbnail && (
+              <Image
+                src={thumbnail}
+                alt={media.title}
+                width={350}
+                height={300}
+                className={styles.photo}
+              />
+            )
+          ))}
       </figure>
 
       <div className={styles.legend}>
