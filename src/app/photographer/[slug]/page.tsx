@@ -13,7 +13,13 @@ export default async function PhotographerPage({
 }) {
   // Get the id
   const { slug } = await params;
-  const photographerId = parseInt(slug);
+  let photographerId = null;
+  try {
+    photographerId = parseInt(slug);
+  } catch (error) {
+    console.error(`Can't parse to int the slug : ${error}`);
+    notFound();
+  }
   // Check if the id is a number
   if (isNaN(photographerId)) notFound();
 
