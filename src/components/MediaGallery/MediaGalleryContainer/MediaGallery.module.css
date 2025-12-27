@@ -1,8 +1,7 @@
 .container {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
   row-gap: 2rem;
-  column-gap: 3rem;
-  justify-content: space-between;
+  column-gap: clamp(2rem, 10vw, 4rem);
+  justify-items: center;
 }
