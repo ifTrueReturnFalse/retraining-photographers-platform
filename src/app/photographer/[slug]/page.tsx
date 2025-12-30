@@ -6,6 +6,7 @@ import { getPhotographer, getAllMediasForPhotographer } from "@/lib/prisma-db";
 import { notFound } from "next/navigation";
 import styles from "./PhotographerPage.module.css";
 import { SelectOption } from "@/types/definitions";
+import { PhotographerSummary } from "@/components/PhotographerSummary";
 
 export default async function PhotographerPage({
   params,
@@ -45,6 +46,7 @@ export default async function PhotographerPage({
         <PhotographerProfile photographer={photographer} />
         <CustomSelect className={styles.mediaSort} options={options} />
         <MediaGallery medias={medias} />
+        <PhotographerSummary photographer={photographer} medias={medias} />
       </main>
     </>
   );
