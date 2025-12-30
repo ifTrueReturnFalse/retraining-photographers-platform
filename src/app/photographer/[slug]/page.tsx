@@ -5,6 +5,7 @@ import { CustomSelect } from "@/components/CustomSelect";
 import { getPhotographer, getAllMediasForPhotographer } from "@/lib/prisma-db";
 import { notFound } from "next/navigation";
 import styles from "./PhotographerPage.module.css";
+import { SelectOption } from "@/types/definitions";
 
 export default async function PhotographerPage({
   params,
@@ -31,12 +32,18 @@ export default async function PhotographerPage({
   // Get all medias
   const medias = await getAllMediasForPhotographer(photographerId);
 
+  const options: SelectOption[] = [
+    { label: "Popularité", value: "popularity" },
+    { label: "Date", value: "date" },
+    { label: "Titre", value: "title" },
+  ];
+
   return (
     <>
       <PhotographerHeader />
       <main className={styles.container}>
         <PhotographerProfile photographer={photographer} />
-        <CustomSelect className={styles.mediaSort} />
+        <CustomSelect className={styles.mediaSort} options={options} />
         <MediaGallery medias={medias} />
       </main>
     </>

@@ -2,23 +2,14 @@
 
 import { useState, useEffect, useRef } from "react";
 import styles from "./CustomSelect.module.css";
+import { SelectOption } from "@/types/definitions";
 
 interface CustomSelectProps {
   className?: string;
+  options: SelectOption[]
 }
 
-interface Option {
-  label: string;
-  value: string;
-}
-
-const options: Option[] = [
-  { label: "Popularité", value: "popularity" },
-  { label: "Date", value: "date" },
-  { label: "Titre", value: "title" },
-];
-
-export function CustomSelect({ className }: CustomSelectProps) {
+export function CustomSelect({ className, options }: CustomSelectProps) {
   // Handle options opening
   const [isOpen, setIsOpen] = useState(false);
   // Keep the current option
@@ -48,7 +39,7 @@ export function CustomSelect({ className }: CustomSelectProps) {
   }, []);
 
   // Change the selected option and close the list
-  const handleSelect = (option: Option) => {
+  const handleSelect = (option: SelectOption) => {
     setSelected(option);
     setIsOpen(false);
   };
