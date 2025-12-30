@@ -60,7 +60,7 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
         Trier par
       </label>
 
-      <div className={styles.selectContainer} aria-label="Order by">
+      <div className={`${styles.selectContainer} ${isOpen ? styles.openSelect : ''}`} aria-label="Order by">
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
