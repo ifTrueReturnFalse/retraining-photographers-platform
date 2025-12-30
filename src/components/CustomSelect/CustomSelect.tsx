@@ -1,19 +1,30 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import styles from "./CustomSelect.module.css";
 import { SelectOption } from "@/types/definitions";
 
 interface CustomSelectProps {
   className?: string;
-  options: SelectOption[]
+  options: SelectOption[];
 }
 
 export function CustomSelect({ className, options }: CustomSelectProps) {
+  // Navigation handling
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  // Sync the sort value in the URL to display the correct option in the select
+  const currentSortValue = searchParams.get("sort") || options[0].value;
+  const initialOption =
+    options.find((option) => option.value == currentSortValue) || options[0];
+
   // Handle options opening
   const [isOpen, setIsOpen] = useState(false);
   // Keep the current option
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = useState(initialOption);
   // Reference to the all div, to check later outside clicks
   const containerRef = useRef<HTMLDivElement>(null);
   // Reference to the button opening the options list
@@ -38,10 +49,15 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Change the selected option and close the list
+  // Change the selected option and close the list, update the URL
   const handleSelect = (option: SelectOption) => {
     setSelected(option);
     setIsOpen(false);
+
+    // Send option to URL
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sort", option.value);
+    router.push(`${pathname}?${params.toString()}`, {scroll: false});
   };
 
   // Simulate the html for functionnality
@@ -60,7 +76,12 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
         Trier par
       </label>
 
-      <div className={`${styles.selectContainer} ${isOpen ? styles.openSelect : ''}`} aria-label="Order by">
+      <div
+        className={`${styles.selectContainer} ${
+          isOpen ? styles.openSelect : ""
+        }`}
+        aria-label="Order by"
+      >
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}

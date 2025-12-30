@@ -7,14 +7,25 @@ import { notFound } from "next/navigation";
 import styles from "./PhotographerPage.module.css";
 import { SelectOption } from "@/types/definitions";
 import { PhotographerSummary } from "@/components/PhotographerSummary";
+import { sortMediaBy } from "@/lib/utils";
+
+// Options for the custom select
+const options: SelectOption[] = [
+  { label: "Popularité", value: "popularity" },
+  { label: "Date", value: "date" },
+  { label: "Titre", value: "title" },
+];
 
 export default async function PhotographerPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ sort?: string }>;
 }) {
   // Get the id
   const { slug } = await params;
+
   let photographerId = null;
   try {
     photographerId = parseInt(slug);
@@ -31,13 +42,17 @@ export default async function PhotographerPage({
   if (!photographer) notFound();
 
   // Get all medias
-  const medias = await getAllMediasForPhotographer(photographerId);
+  let medias = await getAllMediasForPhotographer(photographerId);
 
-  const options: SelectOption[] = [
-    { label: "Popularité", value: "popularity" },
-    { label: "Date", value: "date" },
-    { label: "Titre", value: "title" },
-  ];
+  // Get the sort option
+  const { sort } = await searchParams;
+
+  // Sort the medias
+  if (!sort) { // Default sort method
+    medias = sortMediaBy(medias, options[0].value);
+  } else {
+    medias = sortMediaBy(medias, sort);
+  }
 
   return (
     <>
