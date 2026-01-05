@@ -4,3 +4,8 @@ export interface SelectOption {
   label: string;
   value: string;
 }
+
+export interface ModalProps {
+  isOpen: boolean
+  onClose: () => void
+}

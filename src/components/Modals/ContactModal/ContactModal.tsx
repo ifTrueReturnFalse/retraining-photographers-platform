@@ -2,16 +2,17 @@ import { BaseModal } from "../BaseModal";
 import { Photographer } from "@/app/generated/prisma/client";
 import styles from "./ContactModal.module.css";
 import { BaseButton } from "@/components/Buttons/BaseButton";
+import { ModalProps } from "@/types/definitions";
+
+interface ContactModalProps extends ModalProps {
+  photographer: Photographer;
+}
 
 export function ContactModal({
   isOpen,
   onClose,
   photographer,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  photographer: Photographer;
-}) {
+}: ContactModalProps) {
   const { name } = photographer;
 
   return (
