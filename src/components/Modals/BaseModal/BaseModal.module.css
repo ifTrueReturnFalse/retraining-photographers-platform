@@ -1,0 +1,18 @@
+.modal {
+  width: fit-content;
+  max-height: 98%;
+  margin: auto;
+}
+
+.modal::backdrop {
+  color: #c4c4c4;
+  opacity: 0.6;
+}
+
+.closeButton {
+  height: 2rem;
+  width: 2rem;
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+}

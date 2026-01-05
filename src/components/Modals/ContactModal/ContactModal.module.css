@@ -1,0 +1,46 @@
+.contactModal {
+  background-color: var(--secondary-orange);
+  width: 42rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.3125rem;
+  padding: 1rem 2rem 2rem 2rem;
+}
+
+.contactModal h1 {
+  color: black;
+  font-size: 4rem;
+  line-height: 1.1;
+}
+
+.contactForm {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.contactForm label {
+  color: #312e2e;
+  font-size: 2rem;
+}
+
+.contactForm input {
+  background-color: white;
+  height: 4rem;
+  border-radius: 0.3125rem;
+  font-size: 1.5rem;
+  padding: 0 1rem 0 1rem;
+}
+
+.contactForm textarea {
+  height: 10.5rem;
+  resize: none;
+  width: 100%;
+  background-color: white;
+  border-radius: 0.3125rem;
+}
+
+.sendButton {
+  width: 10.5rem;
+  margin-top: 1.5rem;
+}

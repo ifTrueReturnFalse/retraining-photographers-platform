@@ -21,7 +21,7 @@ export function PhotographerProfile({
       </div>
 
       <div>
-        <ContactButton />
+        <ContactButton photographer={photographer} />
       </div>
 
       <div>
