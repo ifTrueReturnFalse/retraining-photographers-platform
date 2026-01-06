@@ -8,11 +8,26 @@ import Image from "next/image";
 import { Video } from "@/components/Video";
 import { useEffect } from "react";
 
+/**
+ * Props for the LightboxModal component.
+ */
 interface LightboxModalProps extends ModalProps {
+  /** The current media object to display (image or video). */
   currentMedia: Media;
+  /**
+   * Callback to change the displayed media.
+   * @param indexModifier - The offset to change the index by (e.g., -1 for previous, 1 for next).
+   */
   changeMedia: (indexModifier: IndexModifier) => void;
 }
 
+/**
+ * LightboxModal component.
+ * Displays a full-screen modal with an image or video, allowing navigation between media items.
+ * Handles keyboard navigation (Left/Right arrows) and closing (Escape).
+ *
+ * @param props - The properties for the LightboxModal.
+ */
 export function LightboxModal({
   isOpen,
   onClose,
@@ -20,24 +35,33 @@ export function LightboxModal({
   changeMedia,
 }: LightboxModalProps) {
   useEffect(() => {
+    /**
+     * Handles keyboard events for navigation and closing.
+     * @param event - The native keyboard event.
+     */
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Navigate to the previous media item
       if (event.key == "ArrowLeft") {
-        event.preventDefault();
+        event.preventDefault(); // Prevent default scroll behavior
         changeMedia(-1);
       }
+      // Navigate to the next media item
       if (event.key == "ArrowRight") {
         event.preventDefault();
         changeMedia(1);
       }
+      // Close the modal
       if(event.key == "Escape") {
         onClose()
       }
     };
 
+    // Add event listener when the modal is open
     if (isOpen) {
       window.addEventListener("keydown", handleKeyDown);
     }
 
+    // Cleanup: remove event listener when the component unmounts or modal closes
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
@@ -70,6 +94,7 @@ export function LightboxModal({
       </button>
 
       <div className={styles.imageContainer}>
+        {/* Render the image if the media type is an image */}
         {currentMedia.image != null && (
           <Image
             src={`/content/${currentMedia.image}`}
@@ -80,6 +105,7 @@ export function LightboxModal({
           />
         )}
 
+        {/* Render the video if the media type is a video */}
         {currentMedia.video != null && (
           <Video src={`/content/${currentMedia.video}`} />
         )}
