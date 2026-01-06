@@ -49,6 +49,7 @@ export function LightboxModal({
             alt={currentMedia.title}
             width={1050}
             height={900}
+            className={styles.image}
           />
         )}
 

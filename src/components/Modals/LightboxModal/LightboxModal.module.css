@@ -16,3 +16,9 @@
   font-size: 1.5rem;
   padding-bottom: 0.5rem;
 }
+
+.image {
+  max-width: 156rem;
+  max-height: 95%;
+  object-fit: cover;
+}
