@@ -3,14 +3,31 @@
 import { ReactNode, useRef, useEffect } from "react";
 import styles from "./BaseModal.module.css";
 
+/**
+ * Props for the BaseModal component.
+ */
 interface BaseModalProps {
+  /** The content to be displayed inside the modal. */
   children: ReactNode;
+  /** Controls whether the modal is currently open or closed. */
   isOpen: boolean;
+  /** Callback function triggered when the close button is clicked. */
   onClose: () => void;
+  /** Optional color for the close icon (SVG fill). Defaults to "#000000". */
   closeColor?: string;
+  /** Optional additional CSS classes for the dialog element. */
   className?: string;
 }
 
+/**
+ * BaseModal is a reusable modal component built on top of the native HTML <dialog> element.
+ *
+ * It handles the opening and closing of the dialog based on the `isOpen` prop
+ * and provides a standard close button.
+ *
+ * @param props - The properties for the modal.
+ * @returns A dialog element containing the children and a close button.
+ */
 export function BaseModal({
   children,
   isOpen,
@@ -21,15 +38,19 @@ export function BaseModal({
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    // Synchronize the `isOpen` prop with the native <dialog> API.
     if (isOpen) {
+      // showModal() opens the dialog as a modal (on the top layer with a backdrop), preventing interaction with the rest of the page.
       dialogRef.current?.showModal();
     } else {
+      // close() hides the dialog.
       dialogRef.current?.close();
     }
   }, [isOpen]);
 
   return (
     <dialog className={`${styles.modal} ${className}`} ref={dialogRef}>
+      {/* Close button positioned inside the dialog */}
       <button className={styles.closeButton} onClick={() => onClose()}>
         <svg
           viewBox="0 -0.5 21 21"
