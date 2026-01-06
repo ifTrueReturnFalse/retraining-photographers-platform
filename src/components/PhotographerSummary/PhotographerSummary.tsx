@@ -1,15 +1,27 @@
 import styles from "./PhotographerSummary.module.css";
 import { Media, Photographer } from "@/app/generated/prisma/client";
 
+/**
+ * Props definition for the PhotographerSummary component.
+ */
 interface PhotographerSummaryProps {
+  /** Array of media objects associated with the photographer. Used to aggregate likes. */
   medias: Media[];
+  /** The photographer object containing personal details and pricing. */
   photographer: Photographer;
 }
 
+/**
+ * A summary component that displays the total number of likes and the daily price of the photographer.
+ *
+ * @param {PhotographerSummaryProps} props - The component props.
+ * @returns {JSX.Element} The rendered summary component.
+ */
 export function PhotographerSummary({
   medias,
   photographer,
 }: PhotographerSummaryProps) {
+  // Accumulate the 'likes' property from each media item to get the total count
   const totalLikes = medias.reduce(
     (sumLikes, media) => sumLikes + media.likes,
     0
