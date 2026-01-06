@@ -5,36 +5,53 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import styles from "./CustomSelect.module.css";
 import { SelectOption } from "@/types/definitions";
 
+/**
+ * Props for the CustomSelect component.
+ */
 interface CustomSelectProps {
+  /** Optional CSS class names to apply to the container. */
   className?: string;
+  /** List of options to display in the select menu. */
   options: SelectOption[];
 }
 
+/**
+ * A custom select component that synchronizes its state with the URL query parameters.
+ * It allows sorting or filtering based on the provided options.
+ *
+ * @param props - The component props.
+ * @param props.className - Optional class name for styling.
+ * @param props.options - Array of options available for selection.
+ * @returns The rendered custom select component.
+ */
 export function CustomSelect({ className, options }: CustomSelectProps) {
-  // Navigation handling
+  // Next.js navigation hooks for URL manipulation
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Sync the sort value in the URL to display the correct option in the select
+  // Initialize selection based on URL 'sort' param or default to the first option
   const currentSortValue = searchParams.get("sort") || options[0].value;
   const initialOption =
     options.find((option) => option.value == currentSortValue) || options[0];
 
-  // Handle options opening
+  // State to manage the visibility of the options list
   const [isOpen, setIsOpen] = useState(false);
-  // Keep the current option
+  // State to track the currently selected option
   const [selected, setSelected] = useState(initialOption);
-  // Reference to the all div, to check later outside clicks
+  // Ref for the container element, used to detect clicks outside the component
   const containerRef = useRef<HTMLDivElement>(null);
-  // Reference to the button opening the options list
+  // Ref for the button element, used to manage focus
   const buttonRef = useRef<HTMLButtonElement>(null);
-  // Filter the available options
+  // Filter out the currently selected option from the list to avoid duplication in the dropdown
   const nonSelectedOptions = options.filter(
     (option) => option.value != selected.value
   );
 
-  // Checks oustide clicks
+  /**
+   * Effect to handle clicks outside the component.
+   * Closes the dropdown if a click occurs outside the containerRef.
+   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -49,18 +66,27 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Change the selected option and close the list, update the URL
+  /**
+   * Handles the selection of an option.
+   * Updates local state, closes the dropdown, and updates the URL query parameter.
+   *
+   * @param option - The selected option object.
+   */
   const handleSelect = (option: SelectOption) => {
     setSelected(option);
     setIsOpen(false);
 
-    // Send option to URL
+    // Create a new URLSearchParams object to avoid mutating the original read-only params
     const params = new URLSearchParams(searchParams.toString());
     params.set("sort", option.value);
+    // Push the new URL with the updated sort parameter, disabling scroll to top
     router.push(`${pathname}?${params.toString()}`, {scroll: false});
   };
 
-  // Simulate the html for functionnality
+  /**
+   * Handles clicks on the label.
+   * Focuses the button and toggles the dropdown visibility.
+   */
   const handleLabelClick = () => {
     buttonRef.current?.focus();
     setIsOpen((prev) => !prev);
