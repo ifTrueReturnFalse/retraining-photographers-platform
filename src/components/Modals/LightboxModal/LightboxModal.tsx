@@ -107,7 +107,7 @@ export function LightboxModal({
 
         {/* Render the video if the media type is a video */}
         {currentMedia.video != null && (
-          <Video src={`/content/${currentMedia.video}`} />
+          <Video src={`/content/${currentMedia.video}`} className={styles.video} />
         )}
 
         <p className={styles.title}>{currentMedia.title}</p>

@@ -20,7 +20,7 @@ interface VideoProps {
 export function Video({ src, className }: VideoProps) {
   return (
     // Render video with fixed dimensions (1920x1080), controls, and autoplay
-    <video width={1080} height={1920} controls autoPlay className={className}>
+    <video width={1920} height={1080} controls autoPlay className={className}>
       <source src={src} type="video/mp4" />
       {/* Fallback text for unsupported browsers */}
       Le navigateur ne supporte pas les vidéos.

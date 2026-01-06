@@ -31,3 +31,8 @@
   width: auto;
   max-height: calc(var(--max-lightbox-height) - var(--title-offset));
 }
+
+.video {
+  width: auto;
+  max-height: calc(var(--max-lightbox-height) - var(--title-offset));
+}
