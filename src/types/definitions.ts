@@ -9,3 +9,5 @@ export interface ModalProps {
   isOpen: boolean
   onClose: () => void
 }
+
+export type IndexModifier = -1 | 1;

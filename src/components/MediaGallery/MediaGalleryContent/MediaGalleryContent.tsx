@@ -7,14 +7,15 @@ import { useVideoThumbnail } from "@/hooks/useVideoThumbnail";
 
 interface MediaGalleryContentProps {
   media: Media;
+  onPhotoClick: (media: Media) => void
 }
 
-export function MediaGalleryContent({ media }: MediaGalleryContentProps) {
+export function MediaGalleryContent({ media, onPhotoClick }: MediaGalleryContentProps) {
   const { thumbnail, loading } = useVideoThumbnail(media.video);
 
   return (
     <article className={styles.container}>
-      <figure className={styles.mediaContainer}>
+      <figure className={styles.mediaContainer} onClick={() => onPhotoClick(media)}>
         {media.image != null && (
           <Image
             src={`/content/${media.image}`}
