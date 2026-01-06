@@ -5,17 +5,34 @@ import Image from "next/image";
 import { Media } from "@/app/generated/prisma/client";
 import { useVideoThumbnail } from "@/hooks/useVideoThumbnail";
 
+/**
+ * Props for the MediaGalleryContent component.
+ */
 interface MediaGalleryContentProps {
+  /** The media object containing details like title, image/video source, and likes. */
   media: Media;
-  onPhotoClick: (media: Media) => void
+  /** Callback function triggered when the media item is clicked. */
+  onPhotoClick: (media: Media) => void;
 }
 
+/**
+ * Displays a single media item (image or video) within the gallery.
+ * Handles video thumbnail generation and displays media metadata (title, likes).
+ *
+ * @param props - The component props.
+ * @param props.media - The media data to display.
+ * @param props.onPhotoClick - Handler for click events on the media item.
+ * @returns A React article element containing the media and its legend.
+ */
 export function MediaGalleryContent({ media, onPhotoClick }: MediaGalleryContentProps) {
+  // Retrieve video thumbnail and loading state if the media is a video
   const { thumbnail, loading } = useVideoThumbnail(media.video);
 
   return (
     <article className={styles.container}>
+      {/* Clickable container for the media item */}
       <figure className={styles.mediaContainer} onClick={() => onPhotoClick(media)}>
+        {/* Render standard image if the media has an image source */}
         {media.image != null && (
           <Image
             src={`/content/${media.image}`}
@@ -25,10 +42,13 @@ export function MediaGalleryContent({ media, onPhotoClick }: MediaGalleryContent
             className={styles.photo}
           />
         )}
+        {/* Render video thumbnail logic if the media has a video source */}
         {media.video != null &&
           (loading ? (
+            // Show loader while the thumbnail is being generated/fetched
             <div className={styles.loader} />
           ) : (
+            // Display the generated thumbnail once loaded
             thumbnail && (
               <Image
                 src={thumbnail}
