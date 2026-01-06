@@ -4,10 +4,23 @@ import styles from "./ContactModal.module.css";
 import { BaseButton } from "@/components/Buttons/BaseButton";
 import { ModalProps } from "@/types/definitions";
 
+/**
+ * Props for the ContactModal component.
+ */
 interface ContactModalProps extends ModalProps {
+  /** The photographer object containing details (like name) to display in the modal. */
   photographer: Photographer;
 }
 
+/**
+ * A modal component that displays a contact form for a specific photographer.
+ *
+ * @param props - The component props.
+ * @param props.isOpen - Whether the modal is currently open.
+ * @param props.onClose - Function to call when the modal should close.
+ * @param props.photographer - The photographer to contact.
+ * @returns The rendered contact modal.
+ */
 export function ContactModal({
   isOpen,
   onClose,
