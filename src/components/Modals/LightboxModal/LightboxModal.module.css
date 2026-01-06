@@ -1,7 +1,12 @@
+:root {
+  --max-lightbox-height: 95dvh;
+  --title-offset: 5rem;
+}
+
 .lightBoxModal {
   max-width: 156rem;
   width: fit-content;
-  max-height: 98%;
+  max-height: var(--max-lightbox-height);
   display: flex;
   flex-direction: row;
   padding-top: 1.5rem;
@@ -17,8 +22,12 @@
   padding-bottom: 0.5rem;
 }
 
+.imageContainer {
+  margin: auto;
+}
+
 .image {
-  max-width: 156rem;
-  max-height: 95%;
   object-fit: cover;
+  width: auto;
+  max-height: calc(var(--max-lightbox-height) - var(--title-offset));
 }

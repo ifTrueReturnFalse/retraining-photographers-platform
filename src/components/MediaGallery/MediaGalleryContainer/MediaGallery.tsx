@@ -3,7 +3,7 @@
 import styles from "./MediaGallery.module.css";
 import { MediaGalleryContent } from "../MediaGalleryContent";
 import { Media } from "@/app/generated/prisma/client";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { LightboxModal } from "@/components/Modals/LightboxModal/LightboxModal";
 import { IndexModifier } from "@/types/definitions";
 
@@ -25,24 +25,27 @@ export function MediaGallery({ medias }: MediaGalleryProps) {
     setIsOpen(false);
   };
 
-  const changeModalMedia = (indexModifier: IndexModifier): void => {
-    if (!selectedMedia) return;
+  const changeModalMedia = useCallback(
+    (indexModifier: IndexModifier): void => {
+      if (!selectedMedia) return;
 
-    const currentIndex = medias.findIndex(
-      (media) => media.id === selectedMedia.id
-    );
+      const currentIndex = medias.findIndex(
+        (media) => media.id === selectedMedia.id
+      );
 
-    if (currentIndex === -1) return;
+      if (currentIndex === -1) return;
 
-    let nextIndex = currentIndex + indexModifier;
+      let nextIndex = currentIndex + indexModifier;
 
-    if (nextIndex < 0) {
-      nextIndex = medias.length - 1;
-    } else if (nextIndex >= medias.length) {
-      nextIndex = 0;
-    }
-    setSelectedMedia(medias[nextIndex]);
-  };
+      if (nextIndex < 0) {
+        nextIndex = medias.length - 1;
+      } else if (nextIndex >= medias.length) {
+        nextIndex = 0;
+      }
+      setSelectedMedia(medias[nextIndex]);
+    },
+    [selectedMedia, medias]
+  );
 
   return (
     <>

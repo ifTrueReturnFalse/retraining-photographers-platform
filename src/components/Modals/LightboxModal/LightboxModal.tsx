@@ -1,9 +1,12 @@
+"use client";
+
 import { BaseModal } from "../BaseModal";
 import { ModalProps, IndexModifier } from "@/types/definitions";
 import { Media } from "@/app/generated/prisma/client";
 import styles from "./LightboxModal.module.css";
 import Image from "next/image";
 import { Video } from "@/components/Video";
+import { useEffect } from "react";
 
 interface LightboxModalProps extends ModalProps {
   currentMedia: Media;
@@ -16,6 +19,30 @@ export function LightboxModal({
   currentMedia,
   changeMedia,
 }: LightboxModalProps) {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key == "ArrowLeft") {
+        event.preventDefault();
+        changeMedia(-1);
+      }
+      if (event.key == "ArrowRight") {
+        event.preventDefault();
+        changeMedia(1);
+      }
+      if(event.key == "Escape") {
+        onClose()
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, changeMedia, onClose]);
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -42,7 +69,7 @@ export function LightboxModal({
         </svg>
       </button>
 
-      <div>
+      <div className={styles.imageContainer}>
         {currentMedia.image != null && (
           <Image
             src={`/content/${currentMedia.image}`}
