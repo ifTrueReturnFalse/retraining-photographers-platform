@@ -99,31 +99,47 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
     setIsOpen((prev) => !prev);
   };
 
+  /**
+   * Handles keyboard events for accessibility and navigation.
+   * Allows opening/closing the menu and navigating options using keyboard keys.
+   *
+   * @param event - The keyboard event.
+   */
   const handleKeyDown = (event: KeyboardEvent) => {
     switch(event.key) {
       case "ArrowDown":
+        // Prevent default scrolling behavior
         event.preventDefault()
+        // Open the menu if it is currently closed
         if(!isOpen) setIsOpen(true)
+        // Move focus to the next option, stopping at the last one
         setActiveIndex((prev) => (prev < nonSelectedOptions.length - 1 ? prev + 1 : prev))
         break
       case "ArrowUp":
+        // Prevent default scrolling behavior
         event.preventDefault()
+        // Move focus to the previous option, stopping at the first one
         setActiveIndex((prev) => (prev > 0 ? prev - 1 : prev))
         break
       case "Escape":
+        // Close the menu and return focus to the button
         setIsOpen(false)
         buttonRef.current?.focus()
         break
       case "Enter":
       case " ":
+        // Prevent default scrolling or form submission
         event.preventDefault()
         if(!isOpen) {
+          // Open the menu if closed
           setIsOpen(true)
         } else if (activeIndex !== -1) {
+          // Select the currently focused option
           handleSelect(nonSelectedOptions[activeIndex])
         }
         break
       case "Tab":
+        // Close the menu when tabbing away
         setIsOpen(false)
         break
     }
