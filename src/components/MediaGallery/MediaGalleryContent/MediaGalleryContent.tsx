@@ -4,6 +4,8 @@ import styles from "./MediaGalleryContent.module.css";
 import Image from "next/image";
 import { Media } from "@/app/generated/prisma/client";
 import { useVideoThumbnail } from "@/hooks/useVideoThumbnail";
+import { incrementNumberOfLikes } from "@/app/actions/media-actions";
+import { useOptimistic, useTransition } from "react";
 
 /**
  * Props for the MediaGalleryContent component.
@@ -24,14 +26,32 @@ interface MediaGalleryContentProps {
  * @param props.onPhotoClick - Handler for click events on the media item.
  * @returns A React article element containing the media and its legend.
  */
-export function MediaGalleryContent({ media, onPhotoClick }: MediaGalleryContentProps) {
+export function MediaGalleryContent({
+  media,
+  onPhotoClick,
+}: MediaGalleryContentProps) {
   // Retrieve video thumbnail and loading state if the media is a video
   const { thumbnail, loading } = useVideoThumbnail(media.video);
+  const [optimisticLikes, addOptimisticLikes] = useOptimistic(
+    media.likes,
+    (state) => state + 1
+  );
+  const [isPending, startTransition] = useTransition();
+
+  const addLike = async () => {
+    startTransition(async () => {
+      addOptimisticLikes(1);
+      await incrementNumberOfLikes(media);
+    });
+  };
 
   return (
     <article className={styles.container}>
       {/* Clickable container for the media item */}
-      <figure className={styles.mediaContainer} onClick={() => onPhotoClick(media)}>
+      <figure
+        className={styles.mediaContainer}
+        onClick={() => onPhotoClick(media)}
+      >
         {/* Render standard image if the media has an image source */}
         {media.image != null && (
           <Image
@@ -63,8 +83,8 @@ export function MediaGalleryContent({ media, onPhotoClick }: MediaGalleryContent
 
       <div className={styles.legend}>
         <p>{media.title}</p>
-        <p className={styles.likes}>
-          {media.likes}&nbsp;
+        <p className={styles.likes} onClick={() => addLike()}>
+          {optimisticLikes}&nbsp;
           <svg
             width="21"
             height="24"
