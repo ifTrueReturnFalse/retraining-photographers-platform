@@ -50,10 +50,6 @@ export function LightboxModal({
         event.preventDefault();
         changeMedia(1);
       }
-      // Close the modal
-      if(event.key == "Escape") {
-        onClose()
-      }
     };
 
     // Add event listener when the modal is open

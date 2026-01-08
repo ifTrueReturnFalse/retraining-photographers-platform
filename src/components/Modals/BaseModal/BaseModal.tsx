@@ -38,15 +38,26 @@ export function BaseModal({
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        dialogRef.current?.close();
+        onClose();
+      }
+    };
     // Synchronize the `isOpen` prop with the native <dialog> API.
     if (isOpen) {
       // showModal() opens the dialog as a modal (on the top layer with a backdrop), preventing interaction with the rest of the page.
       dialogRef.current?.showModal();
+      window.addEventListener("keydown", handleKeyDown);
     } else {
       // close() hides the dialog.
       dialogRef.current?.close();
     }
-  }, [isOpen]);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   return (
     <dialog className={`${styles.modal} ${className}`} ref={dialogRef}>
