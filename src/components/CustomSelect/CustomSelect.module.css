@@ -53,8 +53,6 @@
 .optionsList {
   width: 100%;
   list-style: none;
-  padding-left: 1rem;
-  padding-right: 1rem;
   position: absolute;
   top: 100%;
   z-index: 100;
@@ -68,4 +66,10 @@
   align-items: center;
   border-top: 1px solid white;
   cursor: pointer;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.activeOption {
+  background-color: var(--secondary-orange);
 }

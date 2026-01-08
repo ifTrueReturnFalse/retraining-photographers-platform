@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import styles from "./CustomSelect.module.css";
 import { SelectOption } from "@/types/definitions";
@@ -39,14 +39,19 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   // State to track the currently selected option
   const [selected, setSelected] = useState(initialOption);
+
   // Ref for the container element, used to detect clicks outside the component
   const containerRef = useRef<HTMLDivElement>(null);
   // Ref for the button element, used to manage focus
   const buttonRef = useRef<HTMLButtonElement>(null);
+
   // Filter out the currently selected option from the list to avoid duplication in the dropdown
   const nonSelectedOptions = options.filter(
     (option) => option.value != selected.value
   );
+
+  // State to manage the selected option index
+  const [activeIndex, setActiveIndex] = useState(-1)
 
   /**
    * Effect to handle clicks outside the component.
@@ -59,6 +64,7 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
         !containerRef.current.contains(event.target as Node)
       ) {
         setIsOpen(false);
+        setActiveIndex(-1)
       }
     };
 
@@ -75,6 +81,7 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
   const handleSelect = (option: SelectOption) => {
     setSelected(option);
     setIsOpen(false);
+    setActiveIndex(-1)
 
     // Create a new URLSearchParams object to avoid mutating the original read-only params
     const params = new URLSearchParams(searchParams.toString());
@@ -92,8 +99,38 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
     setIsOpen((prev) => !prev);
   };
 
+  const handleKeyDown = (event: KeyboardEvent) => {
+    switch(event.key) {
+      case "ArrowDown":
+        event.preventDefault()
+        if(!isOpen) setIsOpen(true)
+        setActiveIndex((prev) => (prev < nonSelectedOptions.length - 1 ? prev + 1 : prev))
+        break
+      case "ArrowUp":
+        event.preventDefault()
+        setActiveIndex((prev) => (prev > 0 ? prev - 1 : prev))
+        break
+      case "Escape":
+        setIsOpen(false)
+        buttonRef.current?.focus()
+        break
+      case "Enter":
+      case " ":
+        event.preventDefault()
+        if(!isOpen) {
+          setIsOpen(true)
+        } else if (activeIndex !== -1) {
+          handleSelect(nonSelectedOptions[activeIndex])
+        }
+        break
+      case "Tab":
+        setIsOpen(false)
+        break
+    }
+  }
+
   return (
-    <div className={`${styles.container} ${className}`} ref={containerRef}>
+    <div className={`${styles.container} ${className}`} ref={containerRef} onKeyDown={handleKeyDown}>
       <label
         onClick={handleLabelClick}
         className={styles.label}
@@ -145,13 +182,14 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
 
         {isOpen && (
           <ul role="listbox" className={styles.optionsList}>
-            {nonSelectedOptions.map((option) => (
+            {nonSelectedOptions.map((option, index) => (
               <li
                 key={option.value}
                 role="option"
                 aria-selected={false}
                 onClick={() => handleSelect(option)}
-                className={styles.option}
+                onMouseEnter={() => setActiveIndex(index)}
+                className={`${styles.option} ${activeIndex === index ? styles.activeOption : ""}`}
               >
                 {option.label}
               </li>
