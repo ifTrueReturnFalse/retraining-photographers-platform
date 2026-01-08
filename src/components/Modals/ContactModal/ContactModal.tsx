@@ -3,6 +3,7 @@ import { Photographer } from "@/app/generated/prisma/client";
 import styles from "./ContactModal.module.css";
 import { BaseButton } from "@/components/Buttons/BaseButton";
 import { ModalProps } from "@/types/definitions";
+import { FormEvent } from "react";
 
 /**
  * Props for the ContactModal component.
@@ -28,6 +29,21 @@ export function ContactModal({
 }: ContactModalProps) {
   const { name } = photographer;
 
+  /**
+   * Handles the form submission.
+   * Prevents the default browser behavior and logs the form data to the console.
+   *
+   * @param event - The form event.
+   */
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault()
+    
+    const form = document.querySelector("form")
+    if(!form) return
+    const formData = new FormData(form)
+    console.log(`${formData.get("name")} ${formData.get("familyName")} ${formData.get("email")} ${formData.get("message")}`)
+  }
+
   return (
     <BaseModal
       isOpen={isOpen}
@@ -36,7 +52,7 @@ export function ContactModal({
     >
       <h1>Contactez-moi {name}</h1>
 
-      <form action="#" className={styles.contactForm}>
+      <form action="#" className={styles.contactForm} onSubmit={handleSubmit} name="contactForm" id="contactForm">
         <label htmlFor="name">Prénom</label>
         <input type="text" name="name" id="name" />
 
