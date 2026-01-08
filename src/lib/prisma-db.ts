@@ -21,7 +21,7 @@ export const updateNumberOfLikes = async (
   mediaId: Media["id"],
   newNumberOfLikes: Media["likes"]
 ) => {
-  return await prisma.media.update({
+  await prisma.media.update({
     where: { id: mediaId },
     data: { likes: newNumberOfLikes },
   });
