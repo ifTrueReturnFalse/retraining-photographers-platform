@@ -1,5 +1,5 @@
 import styles from "./PhotographerSummary.module.css";
-import { Media, Photographer } from "@/app/generated/prisma/client";
+import { Media, Photographer } from "@/generated/prisma/client";
 
 /**
  * Props definition for the PhotographerSummary component.

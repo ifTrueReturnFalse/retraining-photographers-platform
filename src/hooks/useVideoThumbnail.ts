@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Media } from "@/app/generated/prisma/client";
+import { Media } from "@/generated/prisma/client";
 
 /**
  * Custom hook to generate a thumbnail from a video file.

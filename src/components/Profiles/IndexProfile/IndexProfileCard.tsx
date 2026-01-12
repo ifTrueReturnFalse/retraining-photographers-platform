@@ -1,7 +1,7 @@
 import styles from "./IndexProfileCard.module.css";
 import { ProfilePhoto } from "@/components/ProfilePhoto";
 import Link from "next/link";
-import { Photographer } from "@/app/generated/prisma/client";
+import { Photographer } from "@/generated/prisma/client";
 
 interface IndexProfileCardProps {
   photographer: Photographer;

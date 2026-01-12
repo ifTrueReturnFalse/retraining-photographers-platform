@@ -2,7 +2,7 @@
 
 import styles from "./MediaGalleryContent.module.css";
 import Image from "next/image";
-import { Media } from "@/app/generated/prisma/client";
+import { Media } from "@/generated/prisma/client";
 import { useVideoThumbnail } from "@/hooks/useVideoThumbnail";
 import { incrementNumberOfLikes } from "@/actions/media-actions";
 import { useOptimistic, useTransition } from "react";

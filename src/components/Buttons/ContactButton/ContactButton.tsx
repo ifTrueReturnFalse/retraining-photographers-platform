@@ -1,6 +1,6 @@
 "use client";
 
-import { Photographer } from "@/app/generated/prisma/client";
+import { Photographer } from "@/generated/prisma/client";
 import { ContactModal } from "@/components/Modals/ContactModal";
 import { useState } from "react";
 import { BaseButton } from "../BaseButton";

@@ -1,4 +1,4 @@
-import { Media } from "@/app/generated/prisma/client";
+import { Media } from "@/generated/prisma/client";
 import { SelectOption } from "@/types/definitions";
 
 // Used to sort medias 

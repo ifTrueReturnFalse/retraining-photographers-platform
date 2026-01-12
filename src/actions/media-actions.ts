@@ -1,6 +1,6 @@
 "use server";
 
-import { Media } from "../app/generated/prisma/client";
+import { Media } from "../generated/prisma/client";
 import { updateNumberOfLikes } from "@/lib/prisma-db";
 import { updateTag, revalidatePath } from "next/cache";
 

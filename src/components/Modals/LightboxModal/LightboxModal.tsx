@@ -2,7 +2,7 @@
 
 import { BaseModal } from "../BaseModal";
 import { ModalProps, IndexModifier } from "@/types/definitions";
-import { Media } from "@/app/generated/prisma/client";
+import { Media } from "@/generated/prisma/client";
 import styles from "./LightboxModal.module.css";
 import Image from "next/image";
 import { Video } from "@/components/Video";

@@ -1,5 +1,5 @@
 import { BaseModal } from "../BaseModal";
-import { Photographer } from "@/app/generated/prisma/client";
+import { Photographer } from "@/generated/prisma/client";
 import styles from "./ContactModal.module.css";
 import { BaseButton } from "@/components/Buttons/BaseButton";
 import { ModalProps } from "@/types/definitions";

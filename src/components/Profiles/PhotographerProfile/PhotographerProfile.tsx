@@ -1,5 +1,5 @@
 import styles from "./PhotographerProfile.module.css";
-import { Photographer } from "@/app/generated/prisma/client";
+import { Photographer } from "@/generated/prisma/client";
 import { ProfilePhoto } from "@/components/ProfilePhoto";
 import { ContactButton } from "@/components/Buttons/ContactButton";
 

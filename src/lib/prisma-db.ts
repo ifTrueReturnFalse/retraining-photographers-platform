@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import prisma from "./db";
-import type { Photographer, Media } from "@/app/generated/prisma/client";
+import type { Photographer, Media } from "@/generated/prisma/client";
 
 export const getAllPhotographers = async () =>
   await prisma.photographer.findMany();

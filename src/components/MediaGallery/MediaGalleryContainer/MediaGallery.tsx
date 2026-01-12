@@ -2,7 +2,7 @@
 
 import styles from "./MediaGallery.module.css";
 import { MediaGalleryContent } from "../MediaGalleryContent";
-import { Media } from "@/app/generated/prisma/client";
+import { Media } from "@/generated/prisma/client";
 import { useState, useCallback } from "react";
 import { LightboxModal } from "@/components/Modals/LightboxModal/LightboxModal";
 import { IndexModifier } from "@/types/definitions";
