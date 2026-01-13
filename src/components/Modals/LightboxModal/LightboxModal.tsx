@@ -69,11 +69,13 @@ export function LightboxModal({
       onClose={onClose}
       closeColor="#901c1c"
       className={styles.lightBoxModal}
+      aria-label="image closeup view"
     >
       <button
         type="button"
         onClick={() => changeMedia(-1)}
         className={styles.button}
+        aria-label="Previous image"
       >
         <svg
           width="30"
@@ -81,6 +83,7 @@ export function LightboxModal({
           viewBox="0 0 30 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <path
             d="M29.6399 42.36L11.3199 24L29.6399 5.64L23.9999 -2.46532e-07L-0.000107861 24L23.9999 48L29.6399 42.36Z"
@@ -103,7 +106,10 @@ export function LightboxModal({
 
         {/* Render the video if the media type is a video */}
         {currentMedia.video != null && (
-          <Video src={`/content/${currentMedia.video}`} className={styles.video} />
+          <Video
+            src={`/content/${currentMedia.video}`}
+            className={styles.video}
+          />
         )}
 
         <p className={styles.title}>{currentMedia.title}</p>
@@ -113,6 +119,7 @@ export function LightboxModal({
         type="button"
         onClick={() => changeMedia(1)}
         className={styles.button}
+        aria-label="Next image"
       >
         <svg
           width="30"
@@ -120,6 +127,7 @@ export function LightboxModal({
           viewBox="0 0 30 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <path
             d="M5.05138e-07 5.64L18.32 24L6.72563e-08 42.36L5.64 48L29.64 24L5.64 3.88195e-06L5.05138e-07 5.64Z"

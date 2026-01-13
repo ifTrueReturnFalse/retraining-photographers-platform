@@ -163,6 +163,7 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
       >
         <button
           type="button"
+          role="button"
           onClick={() => setIsOpen(!isOpen)}
           ref={buttonRef}
           aria-haspopup="listbox"
@@ -197,12 +198,13 @@ export function CustomSelect({ className, options }: CustomSelectProps) {
         </button>
 
         {isOpen && (
-          <ul role="listbox" className={styles.optionsList}>
+          <ul role="listbox" className={styles.optionsList} aria-activedescendant={`${activeIndex !== -1 ? `select-option-${activeIndex}` : ""}`}>
             {nonSelectedOptions.map((option, index) => (
               <li
                 key={option.value}
                 role="option"
-                aria-selected={false}
+                aria-selected={activeIndex === index}
+                aria-labelledby="label-sort"
                 onClick={() => handleSelect(option)}
                 onMouseEnter={() => setActiveIndex(index)}
                 className={`${styles.option} ${activeIndex === index ? styles.activeOption : ""}`}

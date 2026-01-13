@@ -62,12 +62,17 @@ export function BaseModal({
   return (
     <dialog className={`${styles.modal} ${className}`} ref={dialogRef}>
       {/* Close button positioned inside the dialog */}
-      <button className={styles.closeButton} onClick={() => onClose()}>
+      <button
+        className={styles.closeButton}
+        onClick={() => onClose()}
+        aria-label="Close dialog"
+      >
         <svg
           viewBox="0 -0.5 21 21"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
           fill={closeColor}
+          aria-hidden="true"
         >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
